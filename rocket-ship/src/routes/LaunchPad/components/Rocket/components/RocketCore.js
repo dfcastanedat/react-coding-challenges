@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import '../styles/_rocket.scss';
 
 const SECONDS_TO_TAKEOFF = 5;
@@ -7,10 +7,9 @@ const FINAL_POSITION_BOTTOM_VAL = 'calc(400px)';
 
 function timeToPositionPercent(startTime) {
   const now = Date.now();
-  const timeDiff = now - startTime;
-
+  const timeDiff = parseInt(now) - parseInt(startTime);
+  console.log(timeDiff)
   if (timeDiff >= MS_TO_TAKEOFF) { return FINAL_POSITION_BOTTOM_VAL; }
-
   return `calc(300px + ${((timeDiff / MS_TO_TAKEOFF) * 100).toFixed(0)}%)`;
 }
 
@@ -19,6 +18,9 @@ function generateEmptyListEls(quantity) {
 }
 
 export default function RocketCore({ initialLaunchTime }) {
+  useEffect(() => {
+    console.log("Render")
+  }, [])
   return (
     <>
       <div className="rocket" style={{ bottom: timeToPositionPercent(initialLaunchTime) }}>
